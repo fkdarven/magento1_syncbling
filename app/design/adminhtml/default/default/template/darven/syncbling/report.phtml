@@ -1,0 +1,38 @@
+<style>
+    .head_content entry-edit:first-of-type{
+        display: none;
+    }
+</style>
+<div class="head_content">
+    <div class="entry-edit">
+        <form id="form_importacao_csv" name="form_importacao_csv" method="post" action="<?php echo $this->getUrl('*/*/exportCsv'); ?>" enctype="multipart/form-data">
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+            <h4 class="icon-head fieldset-legend"><?php   echo $this->__('Import'); ?>
+                <br/> <br/>
+                Esse relatório é atualizado diariamente com todos os pedidos sincronizados via SyncBling. Os downloads incluem todos os pedidos, desde a primeira sincronização.
+            </h4>
+            <br />
+            <fieldset id="my-fieldset">
+                <table cellspacing="0" class="form-list">
+                    <tr>
+                        <td class="input-ele">
+                            <ul class="form-list">
+                                <li>
+                                    <button onclick="formImportacaoCsv.submit()" class="scalable save" type="button">Download</span></button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        <form id="form_exportacao_csv_padrao" name="form_exportacao_csv_padrao" method="post" action="<?php echo $this->getUrl('*/*/exportacaoCsv'); ?>">
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var formImportacaoCsv = new varienForm('form_importacao_csv');
+    var formExportacaoCsvPadrao = new varienForm('form_exportacao_csv_padrao');
+</script>

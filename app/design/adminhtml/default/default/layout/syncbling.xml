@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <syncbling_adminhtml_report_index>
+        <update handle="syncbling_report_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="report" template="darven/syncbling/report.phtml"/>
+        </reference>
+    </syncbling_adminhtml_report_index>
+</layout>

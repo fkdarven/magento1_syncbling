@@ -1,0 +1,22 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <syncbling translate="title" module="syncbling">
+                                        <title>Sincronizar Pedidos Bling</title>
+                                        <sort_order>9999999999999999</sort_order>
+                                    </syncbling>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

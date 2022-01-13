@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Darven_SyncBling>
+            <version>1.0.0</version>
+        </Darven_SyncBling>
+    </modules>
+    <global>
+        <blocks>
+            <class>Darven_SyncBling_Block</class>
+        </blocks>
+        <models>
+            <darven_syncbling>
+                <class>Darven_SyncBling_Model</class>
+            </darven_syncbling>
+        </models>
+        <helpers>
+            <syncbling>
+                <class>Darven_SyncBling_Helper</class>
+            </syncbling>
+        </helpers>
+        <resources>
+            <sync_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sync_write>
+            <sync_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sync_read>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <syncbling>
+                <use>admin</use>
+                <args>
+                    <module>Darven_SyncBling</module>
+                    <frontName>syncbling</frontName>
+                </args>
+            </syncbling>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Darven_SyncBling>
+                    <files>
+                        <syncbling>Darven_SyncBling.csv</syncbling>
+                    </files>
+                </Darven_SyncBling>
+            </modules>
+        </translate>
+        <menu>
+            <syncbling_menu>
+                <title>Sync Bling</title>
+                <sort_order>90</sort_order>
+                <children>
+                    <subitem module="syncbling">
+                        <title>Gerar Relatório</title>
+                        <sort_order>0</sort_order>
+                        <action>syncbling/adminhtml_report</action>
+                    </subitem>
+                    <subitem_1 module="syncbling">
+                        <title>Configurações</title>
+                        <sort_order>1</sort_order>
+                        <action>adminhtml/system_config/edit/section/syncbling</action>
+                    </subitem_1>
+                </children>
+            </syncbling_menu>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <syncbling_menu>
+                            <title>Sync Bling</title>
+                            <sort_order>90</sort_order>
+                            <children>
+                                <subitem module="syncbling">
+                                    <title>Gerar Relatório</title>
+                                    <sort_order>0</sort_order>
+
+                                </subitem>
+                                <subitem_1 module="syncbling">
+                                    <title>Configurações</title>
+                                    <sort_order>1</sort_order>
+                                </subitem_1>
+                            </children>
+                        </syncbling_menu>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <syncblng>
+                    <file>syncbling.xml</file>
+                </syncblng>
+            </updates>
+        </layout>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <darven_syncbling_update_orders>
+                <schedule>
+                    <cron_expr>5 4 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>darven_syncbling/cron::updateOrders</model>
+                </run>
+            </darven_syncbling_update_orders>
+        </jobs>
+    </crontab>
+</config>
