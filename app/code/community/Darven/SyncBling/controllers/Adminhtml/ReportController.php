@@ -11,10 +11,6 @@ class Darven_SyncBling_Adminhtml_ReportController extends Mage_Adminhtml_Control
     {
 
         $this->_initAction();
-        //$this->renderLayout();
-
-        //$block = $this->getLayout()->createBlock('Mage_Core_Block_Template','adminhtml_report', array('template' => 'darven/syncbling/report.phtml'));
-        //$this->getLayout()->getBlock('content')->append($block);
         $this->renderLayout();
 
     }
