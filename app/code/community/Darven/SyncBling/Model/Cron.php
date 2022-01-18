@@ -7,31 +7,27 @@
  */
 class Darven_SyncBling_Model_Cron
 {
-
-    private const url = "https://bling.com.br/Api/v2/";
-    private const returnType = "json";
+    public const not_sent = "not_sent";
+    public const sent = "sent";
+    public const url = "https://bling.com.br/Api/v2/";
     private $apikey;
     private $days;
     private $method = 'pedidos';
-    private $shouldExec;
+    private $returnType;
 
     public function setData(){
         $this->apikey = Mage::getStoreConfig("syncbling/general/apikey");
-        $this->shouldExec = Mage::getStoreConfig("syncbling/general/enabled");
         $this->days = Mage::getStoreConfig("syncbling/general/days_per_exec")*-1;
+        $this->returnType = "json";
     }
     public function updateOrders(){
-        if(!$this->shouldExec)
-        {
-            return;
-        }
         $this->setData();
         $today = date("d/m/Y");
-        $start_date = date("d/m/Y", strtotime($this->days ." days"));
-
-        //Loop para resgatar todos os pedidos entre a data escolhida e hoje
+        //Loop para pegar os pedidos entre data_inicial e o dia de hoje
         for($i = $this->days; $i < 0; $i++){
-            $url = self::url . $this->method  ."/" . self::returnType . "?filters=dataEmissao[".$start_date ." TO". $today ."]". "&apikey=" . $this->apikey;
+            $start_date = date("d/m/Y", strtotime($i ." days"));
+            $url = self::url . $this->method  ."/" . $this->returnType . "?filters=dataEmissao[".$start_date ." TO". $today ."]". "&apikey=" . $this->apikey;
+
             $url = str_replace(" ", '%20', $url);
             $curl_handler = curl_init();
             curl_setopt($curl_handler, CURLOPT_URL, $url);
@@ -41,6 +37,7 @@ class Darven_SyncBling_Model_Cron
             if (curl_errno($curl_handler)) {
                 Mage::log(curl_error($curl_handler),null,'syncBling_error.log',true);
             }
+
             else
             {
                 $result = json_decode($result, true);
@@ -61,7 +58,9 @@ class Darven_SyncBling_Model_Cron
                         }
 
                     }
+
                 }
+
             }
         }
     }
